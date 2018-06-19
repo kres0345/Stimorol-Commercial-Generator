@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 AllManuscripts = ""
+AllOutput = ""
 
 Adj = []
 Noun = []
@@ -49,35 +50,25 @@ while(i < len(result)):
     word = result[i][0]
     wordtype = result[i][1]
     if(wordtype == "NOUN"):
-        #print("{0} is a noun".format(word))
         Noun.append(word)
     elif(wordtype == "ADJ"):
-        #print("{0} is a adjective".format(word))
         Adj.append(word)
     elif(wordtype == "PRON"):
-        #print("{0} is a Pron".format(word))
         Pron.append(word)
     elif(wordtype == "PRT"):
-        #print("{0} is a Prt".format(word))
         Prt.append(word)
     elif(wordtype == "CONJ"):
-        #print("{0} is a conjunction".format(word))
         Conj.append(word)
     elif(wordtype == "VERB"):
-        #print("{0} is a verb".format(word))
         Verb.append(word)
     elif(wordtype == "ADP"):
-        #print("{0} is a Adp".format(word))
         Adp.append(word)
     elif(wordtype == "DET"):
-        #print("{0} is a Det".format(word))
         Det.append(word)
     elif(wordtype == "ADV"):
-        #print("{0} is a adverb".format(word))
         Adv.append(word)
     else:
         pass
-        #print("Unkwoen wordtype: "+wordtype)
     i += 1
 
 print("Listing word type statistics:\n")
@@ -104,8 +95,11 @@ while(i < len(Sentences)):
     f = 0
     while(f < len(sentence)):
         try:
-            sentence[f+1]
-            structurefile.write(sentence[f][1] + "+")
+            #sentence[f+1]
+            if(f == len(sentence)-1):
+                structurefile.write(sentence[f][1] + "\n")
+            else:
+                structurefile.write(sentence[f][1] + "+")
         except:
             structurefile.write(sentence[f][1] + "\n")
         f += 1
@@ -141,12 +135,13 @@ while(i < len(structureData)):
         elif(words[f] == "ADV"):
             sentenceWithWords += random.choice(Adv)
         try:
-            words[f+1]
-            sentenceWithWords += " "
+            if not(f == len(words)):
+                sentenceWithWords += " "
         except:
             pass
         f += 1
     print(sentenceWithWords + ".\n")
+    AllOutput += sentenceWithWords + ".\n"
     i += 1
 
 
@@ -197,3 +192,12 @@ print("Output 3: {0} {1} {2} {3} {4} {5} {6} {7}.".format(random.choice(Pron), r
 print("Output 4: {0} {1} {2} {3} {4} {5} {6} {7}.".format(random.choice(Pron), random.choice(Noun), random.choice(Verb), random.choice(Conj), random.choice(Noun), random.choice(Verb), random.choice(Adv), random.choice(Adj)))
 print("Output 5: {0} {1} {2} {3} {4} {5} {6} {7}.".format(random.choice(Pron), random.choice(Noun), random.choice(Verb), random.choice(Conj), random.choice(Noun), random.choice(Verb), random.choice(Adv), random.choice(Adj)))
 '''
+
+try:
+    i = 0
+    while(i < len(sys.argv)):
+        if(sys.argv[i] == "-s" or sys.argv[i] == "/s"):
+            open(sys.argv[i+1], "w").write(AllOutput)
+        i+=1
+except:
+    pass
