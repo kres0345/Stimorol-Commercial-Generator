@@ -20,6 +20,24 @@ try:
 except:
     print("Okay, something fucked up and you know it, you havent installed the required package. DUDE!")
 
+#Checking for parameters
+try:
+    i = 0
+    while(i < len(sys.argv)):
+        if(sys.argv[i] == "-h" or sys.argv[i] == "/h"):
+            print('''
+
+    /s [filename] - Saves sentences buildt with learning material to a file.
+    /h            - Shows help menu.
+
+''')
+            sys.exit()
+        i+=1
+except Exception as e:
+    print(e)
+
+
+
 '''
 print("Checking if library is installed.\nIf it isnt I'll install it, takes about 10 minutes, be patient.\n")
 
